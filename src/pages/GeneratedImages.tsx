@@ -4,7 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
-import { Gallery, Loader } from 'lucide-react';
+import { ImageIcon, Loader } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -73,7 +73,7 @@ const GeneratedImages = () => {
               </>
             ) : (
               <>
-                <Gallery className="mr-2" size={20} />
+                <ImageIcon className="mr-2" size={20} />
                 <span>Generate New Images</span>
               </>
             )}

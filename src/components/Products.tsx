@@ -1,9 +1,8 @@
-
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useIntersectionObserver } from '@/lib/animations';
-import { ChevronLeft, ChevronRight, Star, Gallery } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Star, ImageIcon } from 'lucide-react';
 
 interface Product {
   id: number;
@@ -206,7 +205,7 @@ const Products = () => {
             to="/generated-images" 
             className="inline-flex items-center justify-center px-6 py-3 bg-lumiaro-blue-light/10 text-lumiaro-blue-dark font-medium rounded-lg transition-all duration-300 hover:bg-lumiaro-blue-light/20"
           >
-            <Gallery className="mr-2 h-5 w-5" />
+            <ImageIcon className="mr-2 h-5 w-5" />
             Explore AI-Generated Imagery
           </Link>
         </div>
