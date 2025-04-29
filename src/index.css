@@ -156,4 +156,68 @@
   .stagger-animate.in-view > *:nth-child(6) {
     animation: fade-in 0.5s ease-out 0.6s forwards;
   }
+  
+  /* New fancy frame animations */
+  .luxury-border {
+    @apply before:absolute before:inset-0 before:p-[3px] before:rounded-lg before:bg-gradient-to-r before:from-lumiaro-gold before:via-lumiaro-blue before:to-lumiaro-gold-light before:content-[''] before:mask-border;
+  }
+  
+  .mask-border {
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+  }
+  
+  .floating-frame {
+    @apply absolute border-2 opacity-0 transition-all duration-1000;
+    animation: float 15s ease-in-out infinite alternate;
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0) translateX(0) rotate(0);
+    }
+    33% {
+      transform: translateY(-15px) translateX(10px) rotate(2deg);
+    }
+    66% {
+      transform: translateY(-5px) translateX(-10px) rotate(-2deg);
+    }
+    100% {
+      transform: translateY(-20px) translateX(5px) rotate(1deg);
+    }
+  }
+  
+  .shimmer-border {
+    @apply relative;
+    overflow: hidden;
+  }
+  
+  .shimmer-border::before {
+    content: '';
+    position: absolute;
+    top: -150%;
+    left: -50%;
+    width: 200%;
+    height: 300%;
+    background: linear-gradient(
+      to bottom right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(45deg);
+    animation: shimmer 6s ease-in-out infinite;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%) rotate(45deg);
+    }
+    50% {
+      transform: translateX(100%) rotate(45deg);
+    }
+    100% {
+      transform: translateX(-100%) rotate(45deg);
+    }
+  }
 }

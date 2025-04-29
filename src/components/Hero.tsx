@@ -2,9 +2,37 @@
 import { useIntersectionObserver } from '@/lib/animations';
 import { cn } from '@/lib/utils';
 import { ArrowDown, Flame } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 
 const Hero = () => {
   const { ref, isIntersecting } = useIntersectionObserver();
+  const frameRefs = useRef<(HTMLDivElement | null)[]>([]);
+  
+  useEffect(() => {
+    if (!isIntersecting) return;
+    
+    // Animate frames when section is visible
+    const frames = frameRefs.current.filter(Boolean);
+    frames.forEach((frame, index) => {
+      if (!frame) return;
+      
+      // Set initial positions
+      frame.style.opacity = '0';
+      
+      // Animate with slight delay based on index
+      setTimeout(() => {
+        frame.style.transition = 'all 1.8s cubic-bezier(0.22, 1, 0.36, 1)';
+        frame.style.opacity = '1';
+        
+        // Add slight movement based on index
+        if (index % 2 === 0) {
+          frame.style.transform = 'translateY(0px) rotate(0deg)';
+        } else {
+          frame.style.transform = 'translateX(0px) rotate(0deg)';
+        }
+      }, index * 200);
+    });
+  }, [isIntersecting]);
   
   return (
     <section 
@@ -12,6 +40,35 @@ const Hero = () => {
       className="relative min-h-screen pt-20 flex items-center overflow-hidden bg-gradient-to-b from-white to-blue-50"
       ref={ref as React.RefObject<HTMLDivElement>}
     >
+      {/* Animated luxury frames */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div 
+          ref={el => frameRefs.current[0] = el}
+          className="absolute top-[10%] left-[5%] w-32 h-32 border-2 border-lumiaro-gold/30 rounded-full"
+          style={{ opacity: 0, transform: 'translateY(-20px) rotate(-5deg)' }}
+        />
+        <div 
+          ref={el => frameRefs.current[1] = el}
+          className="absolute top-[15%] right-[8%] w-40 h-40 border-2 border-lumiaro-blue/20 rounded-lg"
+          style={{ opacity: 0, transform: 'translateX(20px) rotate(5deg)' }}
+        />
+        <div 
+          ref={el => frameRefs.current[2] = el}
+          className="absolute bottom-[20%] left-[12%] w-52 h-28 border-2 border-lumiaro-blue-light/30 rounded-xl"
+          style={{ opacity: 0, transform: 'translateY(20px) rotate(-3deg)' }}
+        />
+        <div 
+          ref={el => frameRefs.current[3] = el}
+          className="absolute top-[60%] right-[15%] w-28 h-52 border-2 border-lumiaro-gold-light/30 rounded-2xl"
+          style={{ opacity: 0, transform: 'translateX(-20px) rotate(3deg)' }}
+        />
+        <div 
+          ref={el => frameRefs.current[4] = el}
+          className="absolute bottom-[10%] right-[30%] w-36 h-36 border-2 border-lumiaro-gold/20 rounded-full"
+          style={{ opacity: 0, transform: 'translateY(15px) rotate(-2deg)' }}
+        />
+      </div>
+      
       {/* Decorative elements */}
       <div className="absolute top-1/4 right-10 w-24 h-24 bg-lumiaro-gold-light/20 rounded-full blur-2xl animate-pulse-slow" />
       <div className="absolute bottom-1/4 left-10 w-32 h-32 bg-lumiaro-blue-light/20 rounded-full blur-2xl animate-pulse-slow" />
