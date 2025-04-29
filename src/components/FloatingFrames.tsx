@@ -20,9 +20,9 @@ const frames: FloatingFrame[] = [
     width: '150px',
     height: '150px',
     borderRadius: '50%',
-    borderColor: 'rgba(255, 190, 51, 0.2)',
+    borderColor: 'rgba(255, 100, 51, 0.4)', // More vibrant orange-red
     delay: 0,
-    duration: 15,
+    duration: 10, // Faster animation
     rotation: 10
   },
   {
@@ -31,9 +31,9 @@ const frames: FloatingFrame[] = [
     width: '120px',
     height: '120px',
     borderRadius: '12px',
-    borderColor: 'rgba(30, 136, 201, 0.15)',
-    delay: 2,
-    duration: 18,
+    borderColor: 'rgba(30, 136, 255, 0.4)', // Brighter blue
+    delay: 1,
+    duration: 12,
     rotation: -8
   },
   {
@@ -42,9 +42,9 @@ const frames: FloatingFrame[] = [
     width: '180px',
     height: '100px',
     borderRadius: '16px',
-    borderColor: 'rgba(30, 136, 201, 0.2)',
-    delay: 1,
-    duration: 20,
+    borderColor: 'rgba(30, 255, 136, 0.4)', // Bright green
+    delay: 0.5,
+    duration: 15,
     rotation: 5
   },
   {
@@ -53,9 +53,9 @@ const frames: FloatingFrame[] = [
     width: '100px',
     height: '100px',
     borderRadius: '8px',
-    borderColor: 'rgba(255, 190, 51, 0.15)',
-    delay: 3,
-    duration: 17,
+    borderColor: 'rgba(255, 50, 51, 0.4)', // Bright red
+    delay: 1.5,
+    duration: 12,
     rotation: -12
   },
   {
@@ -64,9 +64,9 @@ const frames: FloatingFrame[] = [
     width: '200px',
     height: '200px',
     borderRadius: '20px',
-    borderColor: 'rgba(78, 173, 222, 0.1)',
-    delay: 2.5,
-    duration: 22,
+    borderColor: 'rgba(178, 73, 255, 0.4)', // Bright purple
+    delay: 1,
+    duration: 18,
     rotation: 15
   },
 ];
@@ -85,20 +85,20 @@ const FloatingFrames = () => {
       frame.style.opacity = '0';
       frame.style.transform = `rotate(${rotation}deg)`;
       
-      // Create animation
+      // Create animation with more dramatic movements
       setTimeout(() => {
-        frame.style.transition = `opacity 2s ease-out, transform ${duration}s ease-in-out`;
+        frame.style.transition = `opacity 1s ease-out, transform ${duration}s ease-in-out`;
         frame.style.opacity = '1';
         
-        // Start the floating animation
+        // Start the floating animation with more noticeable movement
         let isAlternating = true;
         
         const animateFrame = () => {
           if (!frame) return;
           
-          const translateX = isAlternating ? '20px' : '-20px';
-          const translateY = isAlternating ? '-15px' : '15px';
-          const newRotation = isAlternating ? rotation : -rotation;
+          const translateX = isAlternating ? '30px' : '-30px'; // More dramatic movement
+          const translateY = isAlternating ? '-25px' : '25px'; // More dramatic movement
+          const newRotation = isAlternating ? rotation * 1.5 : -rotation * 1.5; // More dramatic rotation
           
           frame.style.transform = `translate(${translateX}, ${translateY}) rotate(${newRotation}deg)`;
           isAlternating = !isAlternating;
@@ -112,12 +112,12 @@ const FloatingFrames = () => {
   }, []);
   
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div className="fixed inset-0 pointer-events-none z-10 overflow-hidden">
       {frames.map((frame, index) => (
         <div
           key={index}
           ref={el => frameRefs.current[index] = el}
-          className="absolute border-2"
+          className="absolute border-4" // Thicker border for visibility
           style={{
             top: frame.top,
             left: frame.left,
@@ -126,6 +126,7 @@ const FloatingFrames = () => {
             borderRadius: frame.borderRadius,
             borderColor: frame.borderColor,
             opacity: 0,
+            boxShadow: '0 0 20px rgba(255, 255, 255, 0.3)' // Added glow effect
           }}
         />
       ))}
